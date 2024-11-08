@@ -30,7 +30,16 @@ public class Rule0001LogTransferFieldTables : DiagnosticAnalyzer
         {
         var Parameter = ctx.Compilation.GetSemanticModel(operation.Arguments[0].Syntax.SyntaxTree).GetSymbolInfo(operation.Arguments[0].Syntax).Symbol;
         
-        ITableTypeSymbol sourceTable = (ITableTypeSymbol)((IVariableSymbol)Parameter).Type.OriginalDefinition;
+        ITableTypeSymbol sourceTable = null;
+
+        try {
+            sourceTable = (ITableTypeSymbol)((IVariableSymbol)Parameter).Type.OriginalDefinition;
+        }
+        catch
+        {
+            sourceTable = (ITableTypeSymbol)((IParameterSymbol)Parameter).GetTypeSymbol().OriginalDefinition;
+        }
+
         IRecordTypeSymbol targetTable = (IRecordTypeSymbol)((IInvocationExpression)operation).Instance.Type;
         
         ctx.ReportDiagnostic(Diagnostic.Create(DiagnosticDescriptors.Rule0001LogTransferFieldTables, operation.Syntax.GetLocation(), sourceTable.Id, sourceTable.Name,targetTable.Id,targetTable.Name));
