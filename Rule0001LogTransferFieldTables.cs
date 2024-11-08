@@ -23,7 +23,8 @@ public class Rule0001LogTransferFieldTables : DiagnosticAnalyzer
 
         IInvocationExpression operation = (IInvocationExpression)ctx.Operation;
         // IOperation
-        // if (operation.TargetMethod.Name == "TransferFields")
+        if (operation.TargetMethod.Name != "TransferFields")
+            return;
         // var a = ((BoundCall)operation).ReceiverOpt.Type;
         // ((Microsoft.Dynamics.Nav.CodeAnalysis.BoundCall)operation).ReceiverOpt
         // ((Microsoft.Dynamics.Nav.CodeAnalysis.BoundCall)ctx.Operation).ReceiverOpt
