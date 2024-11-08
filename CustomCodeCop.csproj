@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>Latest</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>  
+        <Reference Include="System.Collections.Immutable">
+            <SpecificVersion>False</SpecificVersion>
+            <HintPath>ALLanguage/extension/bin/Analyzers/System.Collections.Immutable.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.Dynamics.Nav.CodeAnalysis">
+            <SpecificVersion>False</SpecificVersion>
+            <HintPath>ALLanguage/extension/bin/Analyzers/Microsoft.Dynamics.Nav.CodeAnalysis.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.Dynamics.Nav.Analyzers.Common">
+            <SpecificVersion>False</SpecificVersion>
+            <HintPath>ALLanguage/extension/bin/Analyzers/Microsoft.Dynamics.Nav.Analyzers.Common.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+  </ItemGroup>
+</Project>

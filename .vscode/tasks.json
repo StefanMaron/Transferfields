@@ -1,0 +1,59 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build_dotnet",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "build",
+                "CustomCodeCop.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "silent",
+                "revealProblems": "onProblem",
+                "close": true
+            }
+        },
+        {
+            "label": "run_code",
+            "type": "shell",
+            "command": "code",
+            "args": [
+                "../AlDebugProject/"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "silent",
+                "revealProblems": "onProblem",
+                "close": true
+            }
+        },
+        {
+            "label": "build",
+            "dependsOn": [
+                "build_dotnet",
+                "run_code"
+            ],
+            "dependsOrder": "sequence",
+            "problemMatcher": []
+        },
+        {
+            "label": "LoadALLanguageDependency",
+            "type": "shell",
+            "command": "pwsh ./.vscode/LoadALLanguage.ps1",
+            "problemMatcher": []
+        },
+        {
+            "label": "Prep Codespace",
+            "type": "shell",
+            "command": "pwsh ./.devcontainer/ContainerPrep.ps1",
+            "problemMatcher": []
+        }
+    ]
+}
