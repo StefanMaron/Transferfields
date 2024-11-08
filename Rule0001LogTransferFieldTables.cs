@@ -41,6 +41,9 @@ public class Rule0001LogTransferFieldTables : DiagnosticAnalyzer
         }
 
         IRecordTypeSymbol targetTable = (IRecordTypeSymbol)((IInvocationExpression)operation).Instance.Type;
+
+        if (sourceTable.Id == targetTable.Id && sourceTable.Name ==targetTable.Name)
+            return;
         
         ctx.ReportDiagnostic(Diagnostic.Create(DiagnosticDescriptors.Rule0001LogTransferFieldTables, operation.Syntax.GetLocation(), sourceTable.Id, sourceTable.Name,targetTable.Id,targetTable.Name));
         }
