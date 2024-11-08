@@ -25,17 +25,20 @@ public class Rule0001LogTransferFieldTables : DiagnosticAnalyzer
         // IOperation
         if (operation.TargetMethod.Name != "TransferFields")
             return;
-        // var a = ((BoundCall)operation).ReceiverOpt.Type;
-        // ((Microsoft.Dynamics.Nav.CodeAnalysis.BoundCall)operation).ReceiverOpt
-        // ((Microsoft.Dynamics.Nav.CodeAnalysis.BoundCall)ctx.Operation).ReceiverOpt
+
+        try 
+        {
         var Parameter = ctx.Compilation.GetSemanticModel(operation.Arguments[0].Syntax.SyntaxTree).GetSymbolInfo(operation.Arguments[0].Syntax).Symbol;
-        // operation.Syntax.Parent.ChildNodes().First()
-        // ctx.Compilation.GetSemanticModel(operation.Syntax.SyntaxTree).GetSymbolInfo(operation.Syntax.Parent)
+        
         ITableTypeSymbol sourceTable = (ITableTypeSymbol)((IVariableSymbol)Parameter).Type.OriginalDefinition;
         IRecordTypeSymbol targetTable = (IRecordTypeSymbol)((IInvocationExpression)operation).Instance.Type;
         
         ctx.ReportDiagnostic(Diagnostic.Create(DiagnosticDescriptors.Rule0001LogTransferFieldTables, operation.Syntax.GetLocation(), sourceTable.Id, sourceTable.Name,targetTable.Id,targetTable.Name));
-
+        }
+        catch
+        {
+            ctx.ReportDiagnostic(Diagnostic.Create(DiagnosticDescriptors.Rule0001LogTransferFieldTables, operation.Syntax.GetLocation()));
+        }
 
         // if (field.FieldClass == FieldClassKind.FlowField && field.GetBooleanPropertyValue(PropertyKind.Editable).Value)
         // {
